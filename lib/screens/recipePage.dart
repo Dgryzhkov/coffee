@@ -1,9 +1,7 @@
-import 'package:coffee/screens/drink.dart';
-import 'package:coffee/splash.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../db/db.dart';
 import '../model/recipe.dart';
+import 'drink.dart';
 
 class RecipePage extends StatefulWidget {
   @override
@@ -11,21 +9,16 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
-  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
-  final _recipeNameController = TextEditingController();
 
   late Future<List<Recipe>> _recipesList;
-  late String _recipeName;
-  bool isUpdate = false;
-  int? recipeIdForUpdate;
 
   @override
   void initState() {
     super.initState();
-    updateRecipeList();
+    getRecipeList();
   }
 
-  updateRecipeList() {
+  getRecipeList() {
     setState(() {
       _recipesList = DBProvider.db.getRecipes();
     });
@@ -79,10 +72,11 @@ class _RecipePageState extends State<RecipePage> {
               .map(
                 (recipe) => DataRow(cells: [
                   DataCell(
-                      Text(recipe.recipeName as String,
-                          style: const TextStyle(fontSize: 20)), onTap: () {
-                    _recipeNameController.text = recipe.recipeName as String;
+                      Text(recipe.recipeName as String, maxLines: 1,
+                          style: const TextStyle(fontSize: 25)), onTap: () {
+                    recipe.recipeName as String;
                     Route route = MaterialPageRoute(builder: (context) => DrinkPage(recipe: recipe));
+                    //Route route = MaterialPageRoute(builder: (context) => CanisterPage());
                     Navigator.push(context, route);
                   }),
                   DataCell(Image.asset('assets/image/launch_image.png')),

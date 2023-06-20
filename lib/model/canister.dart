@@ -1,23 +1,23 @@
 import 'dart:core';
 
-class Step {
+class Canister {
   int? canisterId;
   String? extra;
   String? canisterName;
   String? canisterNameLang;
   int? materialId;
-  String? time;
-  String? recipeTotal;
-  String? recipeRemain;
-  String? testResult;
+  double? time;
+  double? recipeTotal;
+  double? recipeRemain;
+  double? testResult;
   int? isBIBCan;
   String? lastCleanTime;
   int? isShowed;
-  String? testCurrent;
-  String? lackRemain;
+  double? testCurrent;
+  double? lackRemain;
   String? date;
 
-  Step(
+  Canister(
       this.canisterId,
       this.extra,
       this.canisterName,
@@ -54,7 +54,7 @@ class Step {
     return map;
   }
 
-  Step.fromMap(Map<String, dynamic> map) {
+  Canister.fromMap(Map<String, dynamic> map) {
     canisterId = map['canisterId'];
     extra = map['extra'];
     canisterName = map['canisterName'];

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import '../model/canister.dart';
 import '../model/recipe.dart';
 
 class DBProvider {
@@ -13,12 +14,11 @@ class DBProvider {
   static late Database _database;
 
   String recipesTable = 'recipe';
-  String columnId = 'id';
-  String columnName = 'recipeName';
+
+  String canistersTable  = 'canisterSet';
+
 
   Future<Database> get database async {
-    //if (_database != null) return _database;
-
     _database = await _initDB();
     return _database;
   }
@@ -51,43 +51,39 @@ class DBProvider {
     await openDatabase(path);
     return await openDatabase(path);
   }
-  // READ
+  // READ DB
   Future<List<Recipe>> getRecipes() async {
-    Database db = await this.database;
+    Database db = await database;
     final List<Map<String, dynamic>> recipesMapList =
     await db.query(recipesTable);
     final List<Recipe> recipesList = [];
-    recipesMapList.forEach((srecipeMap) {
-      recipesList.add(Recipe.fromMap(srecipeMap));
+    recipesMapList.forEach((recipeMap) {
+      recipesList.add(Recipe.fromMap(recipeMap));
     });
     return recipesList;
   }
 
-  // INSERT
-  Future<Recipe> insertRecipe(Recipe recipe) async {
-    Database db = await this.database;
-    recipe.id = await db.insert(recipesTable, recipe.toMap());
-    return recipe;
+  Future<List<Canister>> getCanisters() async {
+    Database db = await database;
+    final List<Map<String, dynamic>> canistersMapList =
+    await db.query(canistersTable);
+    final List<Canister> canistersList = [];
+    canistersMapList.forEach((canisterMap) {
+      canistersList.add(Canister.fromMap(canisterMap));
+    });
+    return canistersList;
   }
 
   // UPDATE
-  Future<int> updateRecipe(Recipe recipe) async {
-    Database db = await this.database;
-    return await db.update(
-      recipesTable,
-      recipe.toMap(),
-      where: '$columnId = ?',
-      whereArgs: [recipe.id],
-    );
-  }
+  // Future<int> updateRecipe(Recipe recipe) async {
+  //   Database db = await this.database;
+  //   return await db.update(
+  //     recipesTable,
+  //     recipe.toMap(),
+  //     where: '$columnId = ?',
+  //     whereArgs: [recipe.id],
+  //   );
+  // }
 
-  // DELETE
-  Future<int> deleteRecipe(int? id) async {
-    Database db = await this.database;
-    return await db.delete(
-      recipesTable,
-      where: '$columnId = ?',
-      whereArgs: [id],
-    );
-  }
+
 }
