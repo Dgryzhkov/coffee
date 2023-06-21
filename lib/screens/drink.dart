@@ -32,14 +32,37 @@ class _DrinkPageState extends State<DrinkPage> {
   Widget build(BuildContext context) {
     List<dynamic> jsonData = json.decode(widget.recipe.stepses ?? '[]');
 
+    ValueNotifier<double> drinkWeight = ValueNotifier<double>(0.0);
+
+// Define and initialize the initialTotalMass variable
+    double initialTotalMass = 100.0; // Replace 100.0 with the actual initial total mass value
+
+// Calculate the initial drink weight
+    double initialDrinkWeight = 0.0;
+    for (var data in jsonData) {
+      double gradientWeight = double.tryParse(data['gradientWeight'] ?? '') ??
+          0.0;
+      initialDrinkWeight += gradientWeight;
+    }
+
+    for (var data in jsonData) {
+      double initialWaterMass = double.tryParse(data['waterVolume'] ?? '') ??
+          0.0;
+      initialDrinkWeight += initialWaterMass;
+    }
+
+// Create the TextEditingController with the initial drink weight
+    TextEditingController drinkWeightController = TextEditingController(
+        text: initialDrinkWeight.toString());
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.recipe.recipeName}'),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body:
-        SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -51,101 +74,126 @@ class _DrinkPageState extends State<DrinkPage> {
             ),
             SizedBox(height: 100),
             Text("Вес напитка"),
-            TextField(decoration: InputDecoration(
+
+            // TextField widget
+            TextField(
+              controller: drinkWeightController,
+              decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Введите вес напитка",
                 fillColor: Colors.black12,
                 filled: true,
-            ),
+              ),
               keyboardType: TextInputType.number,
-            ),
-            Text('Шаги выполнения'),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: jsonData.length,
-              itemBuilder: (context, index) {
-                var data = jsonData[index];
-                String delayTime = data['delayTime'] ?? '';
-                String gradientWeight = data['gradientWeight'] ?? '';
-                String mixSpeed = data['mixSpeed'] ?? '';
-                String waterVolume = data['waterVolume'] ?? '';
-                int canisterId = data['canisterId'] ?? 0;
-                int recipeOutOrder = data['recipeOutOrder'] ?? 0;
+              onChanged: (value) {
+                double weight = double.tryParse(value) ?? 0.0;
+                drinkWeight.value = weight;
 
-                return ListTile(
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10),
-                      Text('Время задержки: $delayTime'),
-                      SizedBox(height: 5),
-                      Text('Вес продукта: $gradientWeight'),
-                      SizedBox(height: 5),
-                      Text('Скорость смешивания: $mixSpeed'),
-                      SizedBox(height: 5),
-                      Text('Объем воды: $waterVolume'),
-                      SizedBox(height: 5),
-                      Text('ID компонента: $canisterId'),
-                      SizedBox(height: 5),
-                      Text('Шаг выполнения: ${recipeOutOrder+1}'),
-                      SizedBox(height: 5),
-                    ],
-                  ),
+                // Calculate the total mass of the drink
+                double totalMass = 0.0;
+                for (var data in jsonData) {
+                  double gradientway = data['gradientWeight'] ?? 0.0;
+                  double watevalume = data['waterVolume'] ?? 0.0;
+                  totalMass += gradientway + watevalume;
+                }
 
-                );
+                // Update the values of gradientway and vatevalume based on the entered mass
+                for (var data in jsonData) {
+                  double gradientway = data['gradientWeight'] ?? 0.0;
+                  double vatevalume = data['waterVolume'] ?? 0.0;
+                  double gradientwayPercentage = initialTotalMass / gradientway;
+                  double watevalumePercentage = initialTotalMass / vatevalume;
+                  data['gradientWeight'] = gradientwayPercentage * weight;
+                  data['waterVolume'] = watevalumePercentage * weight;
+                }
               },
             ),
 
+
+            Text('Шаги выполнения'),
+            ValueListenableBuilder<double>(
+              valueListenable: drinkWeight,
+              builder: (context, value, child) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: jsonData.length,
+                  itemBuilder: (context, index) {
+                    var data = jsonData[index];
+                    String delayTime = data['delayTime'] ?? '';
+                    String gradientWeight = data['gradientWeight'] ?? '';
+                    String mixSpeed = data['mixSpeed'] ?? '';
+                    String waterVolume = data['waterVolume'] ?? '';
+                    int canisterId = data['canisterId'] ?? 0;
+                    int recipeOutOrder = data['recipeOutOrder'] ?? 0;
+
+
+                    // Calculate the updated weight of the product and water volume
+
+                    double productWeight =
+                        drinkWeight.value * double.parse(gradientWeight) /
+                            initialDrinkWeight;
+
+                    double updatedWaterVolume =
+                        drinkWeight.value * double.parse(waterVolume) /
+                            initialDrinkWeight;
+
+                    if (productWeight == 0){
+                      productWeight = double.parse(gradientWeight);
+                    } else {
+                      productWeight;
+                    }
+
+                    if (updatedWaterVolume == 0){
+                      updatedWaterVolume = double.parse(waterVolume);
+                    } else {
+                      updatedWaterVolume;
+                    }
+
+
+                    return ListTile(
+                      title: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 5),
+                          FutureBuilder<List<Canister>>(
+                            future: _canistersList,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<Canister> canisters = snapshot.data!;
+                                Canister selectedCanister =
+                                canisters.firstWhere(
+                                      (canister) =>
+                                  canister.canisterId == canisterId,
+                                );
+                                return Text(
+                                    '${selectedCanister.canisterName}');
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          Text('Шаг выполнения: ${recipeOutOrder + 1}'),
+                          SizedBox(height: 5),
+                          Text('Время задержки: $delayTime'),
+                          SizedBox(height: 5),
+                          Text('Скорость смешивания: $mixSpeed'),
+                          SizedBox(height: 5),
+                          Text('Вес ингридиента:$productWeight'),
+                          SizedBox(height: 5),
+                          Text('Вес воды: $updatedWaterVolume'),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-//   SingleChildScrollView generateList(List<Canister> canisters) {
-//     return SingleChildScrollView(
-//       scrollDirection: Axis.vertical,
-//       child: SizedBox(
-//         width: MediaQuery.of(context).size.width,
-//         child: DataTable(
-//           columns: const [
-//             DataColumn(
-//               label: Text('Состав', style: TextStyle(fontSize: 50)),
-//             ),
-//             // DataColumn(
-//             //   label: Text(' '),
-//             // )
-//           ],
-//           rows: canisters
-//               .map(
-//                 (canister) => DataRow(cells: [
-//                   DataCell(Text(canister.canisterName as String,
-//                       style: const TextStyle(fontSize: 20))),
-//                   //DataCell(Image.asset('assets/image/launch_image.png')),
-//                 ]),
-//               )
-//               .toList(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// Navigator.pop(context);
-
-// Expanded(
-//   child: FutureBuilder(
-//     future: _canistersList,
-//     builder: (context, snapshot) {
-//       if (snapshot.hasData) {
-//         return generateList(snapshot.data as List<Canister>);
-//       }
-//       if (snapshot.data == null ||
-//           (snapshot.data as List<Canister>).isEmpty) {
-//         return Text('No Data Found');
-//       }
-//       return CircularProgressIndicator();
-//     },
-//   ),
-// ),
