@@ -34,26 +34,6 @@ class Canister {
       this.lackRemain,
       this.date);
 
-  Map<String, dynamic> toMap() {
-    final map = Map<String, dynamic>();
-    map['canisterId'] = canisterId;
-    map['extra'] = extra;
-    map['canisterName'] = canisterName;
-    map['canisterNameLang'] = canisterNameLang;
-    map['materialId'] = materialId;
-    map['time'] = time;
-    map['recipeTotal'] = recipeTotal;
-    map['recipeRemain'] = recipeRemain;
-    map['testResult'] = testResult;
-    map['isBIBCan'] = isBIBCan;
-    map['lastCleanTime'] = lastCleanTime;
-    map['isShowed'] = isShowed;
-    map['testCurrent'] = testCurrent;
-    map['lackRemain'] = lackRemain;
-    map['date'] = date;
-    return map;
-  }
-
   Canister.fromMap(Map<String, dynamic> map) {
     canisterId = map['canisterId'];
     extra = map['extra'];

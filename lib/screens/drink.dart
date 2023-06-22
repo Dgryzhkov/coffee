@@ -35,26 +35,25 @@ class _DrinkPageState extends State<DrinkPage> {
     ValueNotifier<double> drinkWeight = ValueNotifier<double>(0.0);
 
 // Define and initialize the initialTotalMass variable
-    double initialTotalMass = 100.0; // Replace 100.0 with the actual initial total mass value
+    double initialTotalMass = 100.0;
 
 // Calculate the initial drink weight
     double initialDrinkWeight = 0.0;
     for (var data in jsonData) {
-      double gradientWeight = double.tryParse(data['gradientWeight'] ?? '') ??
-          0.0;
+      double gradientWeight =
+          double.tryParse(data['gradientWeight'] ?? '') ?? 0.0;
       initialDrinkWeight += gradientWeight;
     }
 
     for (var data in jsonData) {
-      double initialWaterMass = double.tryParse(data['waterVolume'] ?? '') ??
-          0.0;
+      double initialWaterMass =
+          double.tryParse(data['waterVolume'] ?? '') ?? 0.0;
       initialDrinkWeight += initialWaterMass;
     }
 
 // Create the TextEditingController with the initial drink weight
-    TextEditingController drinkWeightController = TextEditingController(
-        text: initialDrinkWeight.toString());
-
+    TextEditingController drinkWeightController =
+        TextEditingController(text: initialDrinkWeight.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -73,8 +72,8 @@ class _DrinkPageState extends State<DrinkPage> {
               child: Image.asset('assets/image/launch_image.png'),
             ),
             SizedBox(height: 100),
-            Text("Вес напитка"),
-
+            Text("Вес напитка", style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 5),
             // TextField widget
             TextField(
               controller: drinkWeightController,
@@ -109,8 +108,8 @@ class _DrinkPageState extends State<DrinkPage> {
               },
             ),
 
-
-            Text('Шаги выполнения'),
+            const SizedBox(height: 5),
+            const Text('Шаги выполнения',style: TextStyle(fontSize: 20)),
             ValueListenableBuilder<double>(
               valueListenable: drinkWeight,
               builder: (context, value, child) {
@@ -126,63 +125,60 @@ class _DrinkPageState extends State<DrinkPage> {
                     int canisterId = data['canisterId'] ?? 0;
                     int recipeOutOrder = data['recipeOutOrder'] ?? 0;
 
-
                     // Calculate the updated weight of the product and water volume
 
-                    double productWeight =
-                        drinkWeight.value * double.parse(gradientWeight) /
-                            initialDrinkWeight;
+                    double productWeight = drinkWeight.value *
+                        double.parse(gradientWeight) /
+                        initialDrinkWeight;
 
-                    double updatedWaterVolume =
-                        drinkWeight.value * double.parse(waterVolume) /
-                            initialDrinkWeight;
+                    double updatedWaterVolume = drinkWeight.value *
+                        double.parse(waterVolume) /
+                        initialDrinkWeight;
 
-                    if (productWeight == 0){
+                    if (productWeight == 0) {
                       productWeight = double.parse(gradientWeight);
                     } else {
                       productWeight;
                     }
 
-                    if (updatedWaterVolume == 0){
+                    if (updatedWaterVolume == 0) {
                       updatedWaterVolume = double.parse(waterVolume);
                     } else {
                       updatedWaterVolume;
                     }
 
-
                     return ListTile(
                       title: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 5),
+                          const SizedBox(height: 10),
+                          Text('Шаг выполнения: ${recipeOutOrder + 1}'),
+                          const SizedBox(height: 5),
                           FutureBuilder<List<Canister>>(
                             future: _canistersList,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 List<Canister> canisters = snapshot.data!;
                                 Canister selectedCanister =
-                                canisters.firstWhere(
-                                      (canister) =>
-                                  canister.canisterId == canisterId,
+                                    canisters.firstWhere(
+                                  (canister) =>
+                                      canister.canisterId == canisterId,
                                 );
-                                return Text(
-                                    '${selectedCanister.canisterName}');
+                                return Text('${selectedCanister.canisterName}');
                               } else if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
                               } else {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               }
                             },
                           ),
-                          SizedBox(height: 5),
-                          Text('Шаг выполнения: ${recipeOutOrder + 1}'),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text('Время задержки: $delayTime'),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text('Скорость смешивания: $mixSpeed'),
-                          SizedBox(height: 5),
-                          Text('Вес ингридиента:$productWeight'),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
+                          Text('Вес ингредиента:$productWeight'),
+                          const SizedBox(height: 5),
                           Text('Вес воды: $updatedWaterVolume'),
                         ],
                       ),
