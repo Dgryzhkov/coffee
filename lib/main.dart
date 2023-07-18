@@ -15,5 +15,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// путь до базы в приложении
+// /data/data/com.example.coffee/databases/coffee,db
 
 
