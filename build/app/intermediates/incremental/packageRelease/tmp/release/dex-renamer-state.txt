@@ -1,4 +1,4 @@
-#Tue Jul 18 10:10:02 GMT+07:00 2023
-base.0=/home/home/StudioProjects/coffee/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+#Tue Jul 18 16:55:00 GMT+07:00 2023
+base.0=/home/home/StudioProjects/coffee2/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:coffee/model/canister.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../db/db.dart';
 import '../model/recipe.dart';
 
@@ -14,16 +15,20 @@ class DrinkPage extends StatefulWidget {
 }
 
 class _DrinkPageState extends State<DrinkPage> {
+
+
   late Future<List<Canister>> _canistersList;
 
   @override
   void initState() {
     super.initState();
+
     getCanistersList();
   }
 
   getCanistersList() {
     setState(() {
+
       _canistersList = DBProvider.db.getCanisters();
     });
   }

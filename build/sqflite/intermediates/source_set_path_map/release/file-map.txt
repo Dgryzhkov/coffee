@@ -4,9 +4,9 @@ com.tekartik.sqflite-core-1.6.0-2 /home/home/.gradle/caches/transforms-3/7e9df2a
 com.tekartik.sqflite-jetified-window-java-1.0.0-beta04-3 /home/home/.gradle/caches/transforms-3/ae81e06d24c799147c26814497a2a305/transformed/jetified-window-java-1.0.0-beta04/res
 com.tekartik.sqflite-main-4 /home/home/.pub-cache/hosted/pub.dev/sqflite-2.2.8+4/android/src/main/res
 com.tekartik.sqflite-release-5 /home/home/.pub-cache/hosted/pub.dev/sqflite-2.2.8+4/android/src/release/res
-com.tekartik.sqflite-pngs-6 /home/home/StudioProjects/coffee/build/sqflite/generated/res/pngs/release
-com.tekartik.sqflite-resValues-7 /home/home/StudioProjects/coffee/build/sqflite/generated/res/resValues/release
-com.tekartik.sqflite-rs-8 /home/home/StudioProjects/coffee/build/sqflite/generated/res/rs/release
-com.tekartik.sqflite-mergeReleaseResources-9 /home/home/StudioProjects/coffee/build/sqflite/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.tekartik.sqflite-mergeReleaseResources-10 /home/home/StudioProjects/coffee/build/sqflite/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.tekartik.sqflite-merged_res-11 /home/home/StudioProjects/coffee/build/sqflite/intermediates/merged_res/release
+com.tekartik.sqflite-pngs-6 /home/home/StudioProjects/coffee2/build/sqflite/generated/res/pngs/release
+com.tekartik.sqflite-resValues-7 /home/home/StudioProjects/coffee2/build/sqflite/generated/res/resValues/release
+com.tekartik.sqflite-rs-8 /home/home/StudioProjects/coffee2/build/sqflite/generated/res/rs/release
+com.tekartik.sqflite-mergeReleaseResources-9 /home/home/StudioProjects/coffee2/build/sqflite/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.tekartik.sqflite-mergeReleaseResources-10 /home/home/StudioProjects/coffee2/build/sqflite/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.tekartik.sqflite-merged_res-11 /home/home/StudioProjects/coffee2/build/sqflite/intermediates/merged_res/release

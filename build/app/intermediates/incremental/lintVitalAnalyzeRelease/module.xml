@@ -1,11 +1,11 @@
 <lint-module
     format="1"
-    dir="/home/home/StudioProjects/coffee/android/app"
+    dir="/home/home/StudioProjects/coffee2/android/app"
     name=":app"
     type="APP"
     maven="android:app:"
     gradle="7.3.0"
-    buildFolder="/home/home/StudioProjects/coffee/build/app"
+    buildFolder="/home/home/StudioProjects/coffee2/build/app"
     bootClassPath="/home/home/Android/Sdk/platforms/android-33/android.jar:/home/home/Android/Sdk/build-tools/30.0.3/core-lambda-stubs.jar"
     javaSourceLevel="1.8"
     compileTarget="android-33">

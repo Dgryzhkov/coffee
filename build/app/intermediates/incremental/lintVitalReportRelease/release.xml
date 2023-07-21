@@ -4,10 +4,10 @@
     minSdkVersion="16"
     targetSdkVersion="33"
     shrinking="true"
-    mergedManifest="/home/home/StudioProjects/coffee/build/app/intermediates/merged_manifest/release/AndroidManifest.xml"
-    manifestMergeReport="/home/home/StudioProjects/coffee/build/app/outputs/logs/manifest-merger-release-report.txt"
-    proguardFiles="/home/home/StudioProjects/coffee/build/app/intermediates/default_proguard_files/global/proguard-android.txt-7.3.0:/home/home/snap/flutter/common/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
-    partialResultsDir="/home/home/StudioProjects/coffee/build/app/intermediates/lint_vital_partial_results/release/out">
+    mergedManifest="/home/home/StudioProjects/coffee2/build/app/intermediates/merged_manifest/release/AndroidManifest.xml"
+    manifestMergeReport="/home/home/StudioProjects/coffee2/build/app/outputs/logs/manifest-merger-release-report.txt"
+    proguardFiles="/home/home/StudioProjects/coffee2/build/app/intermediates/default_proguard_files/global/proguard-android.txt-7.3.0:/home/home/snap/flutter/common/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
+    partialResultsDir="/home/home/StudioProjects/coffee2/build/app/intermediates/lint_vital_partial_results/release/out">
   <buildFeatures
       namespacing="REQUIRED"/>
   <sourceProviders>
@@ -32,9 +32,9 @@
         value="android.app.Application" />
   </manifestPlaceholders>
   <mainArtifact
-      classOutputs="/home/home/StudioProjects/coffee/build/app/intermediates/javac/release/classes:/home/home/StudioProjects/coffee/build/app/tmp/kotlin-classes/release:/home/home/StudioProjects/coffee/build/app/kotlinToolingMetadata:/home/home/StudioProjects/coffee/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
+      classOutputs="/home/home/StudioProjects/coffee2/build/app/intermediates/javac/release/classes:/home/home/StudioProjects/coffee2/build/app/tmp/kotlin-classes/release:/home/home/StudioProjects/coffee2/build/app/kotlinToolingMetadata:/home/home/StudioProjects/coffee2/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
       applicationId="com.example.coffee"
-      generatedSourceFolders="/home/home/StudioProjects/coffee/build/app/generated/ap_generated_sources/release/out:/home/home/StudioProjects/coffee/build/app/generated/aidl_source_output_dir/release/out:/home/home/StudioProjects/coffee/build/app/generated/source/buildConfig/release:/home/home/StudioProjects/coffee/build/app/generated/renderscript_source_output_dir/release/out"
-      generatedResourceFolders="/home/home/StudioProjects/coffee/build/app/generated/res/rs/release:/home/home/StudioProjects/coffee/build/app/generated/res/resValues/release">
+      generatedSourceFolders="/home/home/StudioProjects/coffee2/build/app/generated/ap_generated_sources/release/out:/home/home/StudioProjects/coffee2/build/app/generated/aidl_source_output_dir/release/out:/home/home/StudioProjects/coffee2/build/app/generated/source/buildConfig/release:/home/home/StudioProjects/coffee2/build/app/generated/renderscript_source_output_dir/release/out"
+      generatedResourceFolders="/home/home/StudioProjects/coffee2/build/app/generated/res/rs/release:/home/home/StudioProjects/coffee2/build/app/generated/res/resValues/release">
   </mainArtifact>
 </variant>

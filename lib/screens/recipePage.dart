@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../db/db.dart';
 import '../model/recipe.dart';
 import 'drink.dart';
@@ -24,11 +25,19 @@ class _RecipePageState extends State<RecipePage> {
   String? instantAttr;
   String? date;
 
+  var channel = MethodChannel("get_data_bases");
+
+  getDataBase(){
+    channel.invokeMethod("getDataBase");
+  }
+
   @override
   void initState() {
+    getDataBase;
     super.initState();
-    getRecipeList();
+   getRecipeList();
   }
+
 
   getRecipeList() {
     setState(() {
@@ -117,34 +126,35 @@ class _RecipePageState extends State<RecipePage> {
                   textStyle: TextStyle(color: Colors.white),
                 ),
                 child: Text(
-                  (isUpdate ? 'UPDATE' : 'ADD'),
+                  "получить список"
+                  // (isUpdate ? 'UPDATE' : 'ADD'),
                 ),
-                onPressed: () {
-                  if (isUpdate) {
-                    if (_formStateKey.currentState!.validate()) {
-                      _formStateKey.currentState!.save();
-                      DBProvider.db
-                          .updateRecipe(
-                          Recipe(
-                              recipeIdForUpdate!,
-                              extra,
-                              canisterIds,
-                              _recipeName,
-                              stepses,
-                              esAttr,
-                              instantAttr,
-                              date), _recipeName).then((data) {
-                        setState(() {
-                          isUpdate = false;
-                        });
-                      });
-                    } else {
-
-                    }
-                    _recipeNameController.text = '';
-                    getRecipeList();
-                  };
-                },
+                onPressed: getRecipeList
+                //     () {
+                //   if (isUpdate) {
+                //     if (_formStateKey.currentState!.validate()) {
+                //       _formStateKey.currentState!.save();
+                //       DBProvider.db
+                //           .updateRecipe(
+                //           Recipe(
+                //               recipeIdForUpdate!,
+                //               extra,
+                //               canisterIds,
+                //               _recipeName,
+                //               stepses,
+                //               esAttr,
+                //               instantAttr,
+                //               date), _recipeName).then((data) {
+                //         setState(() {
+                //           isUpdate = false;
+                //         });
+                //       });
+                //     } else {
+                //     }
+                //     _recipeNameController.text = '';
+                //     getRecipeList();
+                //   };
+                // },
               ),
               Padding(
                 padding: EdgeInsets.all(10),
@@ -155,15 +165,17 @@ class _RecipePageState extends State<RecipePage> {
                   textStyle: TextStyle(color: Colors.white),
                 ),
                 child: Text(
-                  (isUpdate ? 'CANCEL UPDATE' : 'CLEAR'),
+                  "получить БД"
+                  // (isUpdate ? 'CANCEL UPDATE' : 'CLEAR'),
                 ),
-                onPressed: () {
-                  _recipeNameController.text = '';
-                  setState(() {
-                    isUpdate = false;
-                    recipeIdForUpdate = null; // null;
-                  });
-                },
+                onPressed: getDataBase,
+                //     () {
+                //   _recipeNameController.text = '';
+                //   setState(() {
+                //     isUpdate = false;
+                //     recipeIdForUpdate = null; // null;
+                //   });
+                // },
               ),
             ],
           ),

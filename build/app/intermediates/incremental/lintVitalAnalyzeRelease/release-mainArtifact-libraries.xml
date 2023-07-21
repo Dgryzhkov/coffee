@@ -1,13 +1,13 @@
 <libraries>
   <library
-      name="__local_aars__:/home/home/StudioProjects/coffee/build/app/intermediates/flutter/release/libs.jar:unspecified@jar"
-      jars="/home/home/StudioProjects/coffee/build/app/intermediates/flutter/release/libs.jar"
-      resolved="__local_aars__:/home/home/StudioProjects/coffee/build/app/intermediates/flutter/release/libs.jar:unspecified"/>
+      name="__local_aars__:/home/home/StudioProjects/coffee2/build/app/intermediates/flutter/release/libs.jar:unspecified@jar"
+      jars="/home/home/StudioProjects/coffee2/build/app/intermediates/flutter/release/libs.jar"
+      resolved="__local_aars__:/home/home/StudioProjects/coffee2/build/app/intermediates/flutter/release/libs.jar:unspecified"/>
   <library
-      name="/home/home/StudioProjects/coffee/android@@:sqflite::release"
-      jars="/home/home/StudioProjects/coffee/build/sqflite/.transforms/7904ea61a02f237e5a6633b3ca098310/transformed/out/jars/classes.jar:/home/home/StudioProjects/coffee/build/sqflite/.transforms/7904ea61a02f237e5a6633b3ca098310/transformed/out/jars/libs/R.jar"
+      name="/home/home/StudioProjects/coffee2/android@@:sqflite::release"
+      jars="/home/home/StudioProjects/coffee2/build/sqflite/.transforms/67f340bdfb997da93a21269a0f00b7f2/transformed/out/jars/classes.jar:/home/home/StudioProjects/coffee2/build/sqflite/.transforms/67f340bdfb997da93a21269a0f00b7f2/transformed/out/jars/libs/R.jar"
       resolved="com.tekartik.sqflite:sqflite:unspecified"
-      folder="/home/home/StudioProjects/coffee/build/sqflite/.transforms/7904ea61a02f237e5a6633b3ca098310/transformed/out"
+      folder="/home/home/StudioProjects/coffee2/build/sqflite/.transforms/67f340bdfb997da93a21269a0f00b7f2/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -17,10 +17,10 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="/home/home/StudioProjects/coffee/android@@:path_provider_android::release"
-      jars="/home/home/StudioProjects/coffee/build/path_provider_android/.transforms/6342332baa72b398b9a6d7ce84aca289/transformed/out/jars/classes.jar:/home/home/StudioProjects/coffee/build/path_provider_android/.transforms/6342332baa72b398b9a6d7ce84aca289/transformed/out/jars/libs/R.jar"
+      name="/home/home/StudioProjects/coffee2/android@@:path_provider_android::release"
+      jars="/home/home/StudioProjects/coffee2/build/path_provider_android/.transforms/4c7080136acecee5ea55c94b48669589/transformed/out/jars/classes.jar:/home/home/StudioProjects/coffee2/build/path_provider_android/.transforms/4c7080136acecee5ea55c94b48669589/transformed/out/jars/libs/R.jar"
       resolved="io.flutter.plugins.pathprovider:path_provider_android:unspecified"
-      folder="/home/home/StudioProjects/coffee/build/path_provider_android/.transforms/6342332baa72b398b9a6d7ce84aca289/transformed/out"
+      folder="/home/home/StudioProjects/coffee2/build/path_provider_android/.transforms/4c7080136acecee5ea55c94b48669589/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

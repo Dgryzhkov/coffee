@@ -1,6 +1,4 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../model/canister.dart';
@@ -22,66 +20,14 @@ class DBProvider {
     return _database;
   }
 
-  Future<void> _changeFilePermissions(String path) async {
-    try {
-      final result = await Process.run('chmod', ['-R', '666', path]);
-      if (result.exitCode != 0) {
-        print('Failed to change file permissions');
-        print('Error: {result.stderr}');
-      } else {
-        print('File permissions changed successfully');
-      }
-    } catch (ex) {
-      print('Error: ex');
-    }
-  }
-
   Future<Database> _initDB() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(
-        dbPath, '/data/data/com.jinuo.mhwang.jetinnocoffe/databases/coffee.db');
+    final dbPath = await getApplicationDocumentsDirectory();
+    final path = join(dbPath.path,
+        '/data/data/com.jinuo.mhwang.jetinnocoffe/databases/coffee.db');
 
-    print('база на месте');
-
-    try {
-      await _changeFilePermissions(path);
-    } catch (ex) {
-      print(ex.toString());
-    }
-
-    return await openDatabase(path);
+      return await openDatabase(path);
   }
 
-  // Future<Database> _initDB() async {
-  //   final dbPath = await getDatabasesPath();
-  //   final path = join(dbPath, "/data/data/com.jinuo.mhwang.jetinnocoffe/databases/coffee.db");
-  //
-  //   final exist = await databaseExists(path);
-  //
-  //   if (exist) {
-  //     //db already exists
-  //     // open db
-  //     print("db already exists");
-  //     await openDatabase(path);
-  //   } else {
-  //     //db does not exists create a new one
-  //     print("creating a copy from assets");
-  //
-  //     try {
-  //       await Directory(dirname(path)).create(recursive: true);
-  //     } catch (_) {}
-  //     ByteData data = await rootBundle.load(join("assets", "coffee.db"));
-  //     List<int> bytes =
-  //         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  //
-  //     await File(path).writeAsBytes(bytes, flush: true);
-  //     print("db copied");
-  //   }
-  //   await openDatabase(path);
-  //   return await openDatabase(path);
-  // }
-
-  // READ DB
   Future<List<Recipe>> getRecipes() async {
     Database db = await database;
     final List<Map<String, dynamic>> recipesMapList =
@@ -111,7 +57,8 @@ class DBProvider {
       recipe.id,
       recipe.extra,
       recipe.canisterIds,
-      newRecipeName, // Update the value here
+      newRecipeName,
+      // Update the value here
       recipe.stepses,
       recipe.esAttr,
       recipe.instantAttr,
@@ -125,3 +72,4 @@ class DBProvider {
     );
   }
 }
+
