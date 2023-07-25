@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../db/db.dart';
 import '../model/recipe.dart';
+import '../services/ping.dart';
 import 'drink.dart';
 
 class RecipePage extends StatefulWidget {
@@ -10,6 +14,13 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
+
+  var channel = MethodChannel("get_data_bases");
+
+  usbusbusb(){
+    channel.invokeMethod("usbusbusb");
+  }
+
 
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
   final _recipeNameController = TextEditingController();
@@ -25,19 +36,12 @@ class _RecipePageState extends State<RecipePage> {
   String? instantAttr;
   String? date;
 
-  var channel = MethodChannel("get_data_bases");
-
-  getDataBase(){
-    channel.invokeMethod("getDataBase");
-  }
-
   @override
   void initState() {
-    getDataBase;
     super.initState();
-   getRecipeList();
-  }
 
+    getRecipeList();
+  }
 
   getRecipeList() {
     setState(() {
@@ -47,6 +51,22 @@ class _RecipePageState extends State<RecipePage> {
 
   @override
   Widget build(BuildContext context) {
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      //ping();
+
+      internet().then((result) {
+        if (result) {
+          print("true");
+        } else {
+          print("false");
+        }
+      });
+
+
+    });
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Coffee'),
@@ -88,15 +108,10 @@ class _RecipePageState extends State<RecipePage> {
                         color: Colors.black,
                       ),
                       fillColor: Colors.white,
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 50
-                      ),
+                      labelStyle: TextStyle(color: Colors.black, fontSize: 50),
                     ),
                     style: TextStyle(fontSize: 50),
                   ),
-
-
                 ),
               ],
             ),
@@ -125,35 +140,36 @@ class _RecipePageState extends State<RecipePage> {
                   primary: Colors.green,
                   textStyle: TextStyle(color: Colors.white),
                 ),
-                child: Text(
-                  "получить список"
-                  // (isUpdate ? 'UPDATE' : 'ADD'),
-                ),
-                onPressed: getRecipeList
+                child: Text("Отключить usb"
+                    // (isUpdate ? 'UPDATE' : 'ADD'),
+                    ),
+                onPressed: usbusbusb,
                 //     () {
                 //   if (isUpdate) {
                 //     if (_formStateKey.currentState!.validate()) {
                 //       _formStateKey.currentState!.save();
                 //       DBProvider.db
                 //           .updateRecipe(
-                //           Recipe(
-                //               recipeIdForUpdate!,
-                //               extra,
-                //               canisterIds,
-                //               _recipeName,
-                //               stepses,
-                //               esAttr,
-                //               instantAttr,
-                //               date), _recipeName).then((data) {
+                //               Recipe(
+                //                   recipeIdForUpdate!,
+                //                   extra,
+                //                   canisterIds,
+                //                   _recipeName,
+                //                   stepses,
+                //                   esAttr,
+                //                   instantAttr,
+                //                   date),
+                //               _recipeName)
+                //           .then((data) {
                 //         setState(() {
                 //           isUpdate = false;
                 //         });
                 //       });
-                //     } else {
-                //     }
+                //     } else {}
                 //     _recipeNameController.text = '';
                 //     getRecipeList();
-                //   };
+                //   }
+                //   ;
                 // },
               ),
               Padding(
@@ -164,18 +180,16 @@ class _RecipePageState extends State<RecipePage> {
                   primary: Colors.red,
                   textStyle: TextStyle(color: Colors.white),
                 ),
-                child: Text(
-                  "получить БД"
-                  // (isUpdate ? 'CANCEL UPDATE' : 'CLEAR'),
-                ),
-                onPressed: getDataBase,
-                //     () {
-                //   _recipeNameController.text = '';
-                //   setState(() {
-                //     isUpdate = false;
-                //     recipeIdForUpdate = null; // null;
-                //   });
-                // },
+                child: Text("получить БД"
+                    // (isUpdate ? 'CANCEL UPDATE' : 'CLEAR'),
+                    ),
+                onPressed: () {
+                  _recipeNameController.text = '';
+                  setState(() {
+                    isUpdate = false;
+                    recipeIdForUpdate = null; // null;
+                  });
+                },
               ),
             ],
           ),
@@ -189,7 +203,8 @@ class _RecipePageState extends State<RecipePage> {
                 if (snapshot.hasData) {
                   return generateList(snapshot.data as List<Recipe>);
                 }
-                if (snapshot.data == null || (snapshot.data as List<Recipe>).length == 0) {
+                if (snapshot.data == null ||
+                    (snapshot.data as List<Recipe>).length == 0) {
                   return Text('No Data Found');
                 }
                 return CircularProgressIndicator();
@@ -219,22 +234,25 @@ class _RecipePageState extends State<RecipePage> {
               .map(
                 (recipe) => DataRow(cells: [
                   DataCell(
-                      Text(recipe.recipeName as String, maxLines: 1,
-                          style: const TextStyle(fontSize: 45)), onTap: () {
-                    recipe.recipeName as String;
-                    Route route = MaterialPageRoute(builder: (context) => DrinkPage(recipe: recipe));
-                    //Route route = MaterialPageRoute(builder: (context) => CanisterPage());
-                    Navigator.push(context, route);
-                  }, onLongPress: () {
-                    setState(() {
-                      isUpdate = true;
-                      recipeIdForUpdate = recipe.id;
-                    });
-                    _recipeNameController.text = recipe.recipeName!;
-          },),
+                    Text(recipe.recipeName as String,
+                        maxLines: 1, style: const TextStyle(fontSize: 45)),
+                    onTap: () {
+                      recipe.recipeName as String;
+                      Route route = MaterialPageRoute(
+                          builder: (context) => DrinkPage(recipe: recipe));
+                      //Route route = MaterialPageRoute(builder: (context) => CanisterPage());
+                      Navigator.push(context, route);
+                    },
+                    onLongPress: () {
+                      setState(() {
+                        isUpdate = true;
+                        recipeIdForUpdate = recipe.id;
+                      });
+                      _recipeNameController.text = recipe.recipeName!;
+                    },
+                  ),
                   DataCell(Image.asset('assets/image/launch_image.png')),
-                ]
-                ),
+                ]),
               )
               .toList(),
         ),

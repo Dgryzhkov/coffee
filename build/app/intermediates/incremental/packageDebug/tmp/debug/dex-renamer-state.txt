@@ -1,4 +1,4 @@
-#Fri Jul 21 13:39:42 GMT+07:00 2023
+#Mon Jul 24 18:10:03 GMT+07:00 2023
 base.0=/home/home/StudioProjects/coffee2/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
